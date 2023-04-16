@@ -3,6 +3,11 @@ package website;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class SupportCenter extends Site{
     public SupportCenter(WebDriver driver) {
@@ -10,8 +15,11 @@ public class SupportCenter extends Site{
     }
 
     public void getSupport() {
-        TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[2]/footer/div[1]/div[2]/div/div[2]/nav/ul/li[1]/a")).click();
+        Actions actions = new Actions(driver);
+        WebElement support = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"root\"]/footer/div[1]/div[2]/div/div[2]/nav/ul/li[1]/a"));
+        actions.moveToElement(support);
         TestUtility.waitUntilPageLoads(driver, 20);
+        support.click();
     }
 
     public void selectSection() {
@@ -25,14 +33,15 @@ public class SupportCenter extends Site{
     }
 
     public void submitRequest() {
-        TestUtility.getElementBySelector(driver, By.xpath("/html/body/header/div[2]/nav/a")).click();
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"user-nav\"]/a")).click();
         TestUtility.waitUntilPageLoads(driver, 30);
-        WebElement email = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[1]"));
-        WebElement username = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[2]"));
-        WebElement planDropdown = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[3]"));
-        WebElement categoryDropdown = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[4]"));
-        WebElement subject = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[5]"));
-        WebElement input = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[7]"));
+        Actions actions = new Actions(driver);
+        WebElement email = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"request_anonymous_requester_email\"]"));
+        WebElement username = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"request_custom_fields_471642\"]"));
+        WebElement planDropdown = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[3]/a"));
+        WebElement categoryDropdown = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/div[4]/a"));
+        WebElement subject = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"request_subject\"]"));
+        WebElement input = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"request_description_ifr\"]"));
         WebElement submit = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/footer/input"));
 
 //        email.clear();
@@ -41,12 +50,23 @@ public class SupportCenter extends Site{
 //        input.clear();
         email.sendKeys(TestUtility.CORRECT_LOGIN + "@gmail.com");
         username.sendKeys(TestUtility.CORRECT_LOGIN);
-        subject.sendKeys("Ooops");
-        input.sendKeys("Why do i have to pay");
         planDropdown.click();
         TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"lite\"]")).click();
         categoryDropdown.click();
         TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"subscription\"]")).click();
+        actions.scrollToElement(subject);
+        subject.sendKeys("Ooops");
+        actions.scrollToElement(input);
+        driver.switchTo().frame(input);
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"tinymce\"]/p")).sendKeys("WHYYYYYYY");
+        //input.sendKeys("Why do i have to pay");
+        driver.switchTo().defaultContent();
+        actions.scrollToElement(submit);
         submit.click();
+        TestUtility.waitUntilPageLoads(driver, 30);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
+                By.xpath("//*[contains(@id, \"cf-chl-widget\")]")));
+//        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#challenge-stage.div.label.input[type=checkbox]"))).click();
     }
 }

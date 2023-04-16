@@ -33,7 +33,7 @@ public class TestUtility {
         List<WebDriver> drivers = new ArrayList<>();
         try {
             drivers.add(getChromeDriver());
-//            drivers.add(getSafariDriver());
+            drivers.add(getSafariDriver());
             return drivers;
         } catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class TestUtility {
     }
 
     public static WebElement getElementBySelector(WebDriver driver, By selector) {
-        WebDriverWait driverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait driverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
         return driverWait.until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 

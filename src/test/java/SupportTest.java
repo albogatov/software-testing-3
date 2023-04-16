@@ -21,15 +21,20 @@ public class SupportTest {
     @Test
     void checkRequest() {
         List<WebDriver> drivers = TestUtility.getDrivers();
-        WebDriver webDriver = drivers.get(0);
+        //WebDriver webDriver = drivers.get(0);
+        drivers.parallelStream().forEach(webDriver -> {
             SupportCenter support = new SupportCenter(webDriver);
             webDriver.get(TestUtility.BASE_URL);
+        webDriver.manage().window().maximize();
+            TestUtility.getElementBySelector(webDriver, By.xpath("/html/body/div[1]/div/a")).click();
+        TestUtility.waitUntilPageLoads(webDriver, 40);
             support.getSupport();
 //            support.selectQuestion();
             support.submitRequest();
 //            WebElement text = TestUtility.getElementBySelector(webDriver, By.xpath("/html/body/div[1]/div/div/strong"));
-//            assertEquals("Your request was successfully submitted.", text.getText());
-//            webDriver.quit();
+            assertEquals("Security check", webDriver.getTitle());
+            webDriver.quit();
+        });
     }
 
 }
