@@ -44,10 +44,6 @@ public class SupportCenter extends Site{
         WebElement input = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"request_description_ifr\"]"));
         WebElement submit = TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"new_request\"]/footer/input"));
 
-//        email.clear();
-//        username.clear();
-//        subject.clear();
-//        input.clear();
         email.sendKeys(TestUtility.CORRECT_LOGIN + "@gmail.com");
         username.sendKeys(TestUtility.CORRECT_LOGIN);
         planDropdown.click();
@@ -59,7 +55,6 @@ public class SupportCenter extends Site{
         actions.scrollToElement(input);
         driver.switchTo().frame(input);
         TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"tinymce\"]/p")).sendKeys("WHYYYYYYY");
-        //input.sendKeys("Why do i have to pay");
         driver.switchTo().defaultContent();
         actions.scrollToElement(submit);
         submit.click();
@@ -67,6 +62,12 @@ public class SupportCenter extends Site{
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(25));
         wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(
                 By.xpath("//*[contains(@id, \"cf-chl-widget\")]")));
-//        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#challenge-stage.div.label.input[type=checkbox]"))).click();
+    }
+
+    public void useChat() {
+        TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[3]/div[2]/iframe")).click();
+        driver.switchTo().frame(TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"home\"]/iframe")));
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"1val-field_1.3.10--input\"]")).sendKeys("Hi");
+        TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div/button")).click();
     }
 }
