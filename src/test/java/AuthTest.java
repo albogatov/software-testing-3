@@ -43,4 +43,17 @@ public class AuthTest {
             webDriver.quit();
         });
     }
+
+    @Test
+    void checkWrongLogin() {
+        List<WebDriver> drivers = TestUtility.getDrivers();
+        drivers.parallelStream().forEach(webDriver -> {
+            LoginPage loginPage = new LoginPage(webDriver);
+            loginPage.getSite(webDriver);
+            loginPage.goToLogin();
+            loginPage.doWrongLogin();
+            assertEquals("Error logging in", TestUtility.getElementBySelector(webDriver, By.xpath("//*[@id=\"root\"]/div/div/form/div[3]/div[2]/div")).getText());
+            webDriver.quit();
+        });
+    }
 }

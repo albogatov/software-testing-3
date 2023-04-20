@@ -9,10 +9,6 @@ public class SiteFooter extends Site {
         super(driver);
     }
 
-//    public void goToPayment() {
-//        TestUtility.getElementBySelector(driver, By.xpath(".//*[@id=\"main\"]/div[1]/ul/li[3]")).click();
-//        TestUtility.waitUntilPageLoads(driver, 20);
-//    }
 
     public void goToPrintShop() {
         TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[2]/footer/div[1]/div[2]/div/div[1]/nav/ul/li[1]/a")).click();
