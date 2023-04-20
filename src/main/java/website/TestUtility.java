@@ -1,10 +1,8 @@
 package website;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,7 +31,7 @@ public class TestUtility {
         List<WebDriver> drivers = new ArrayList<>();
         try {
             drivers.add(getChromeDriver());
-//            drivers.add(getSafariDriver());
+            drivers.add(getSafariDriver());
             return drivers;
         } catch (Exception e) {
             e.printStackTrace();
