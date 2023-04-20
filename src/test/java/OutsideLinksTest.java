@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
@@ -16,7 +18,6 @@ public class OutsideLinksTest {
     public static void prepareDrivers() {
         TestUtility.prepareDrivers();
     }
-
     @Test
     void checkPrintShop() {
         List<WebDriver> drivers = TestUtility.getDrivers();
@@ -26,7 +27,8 @@ public class OutsideLinksTest {
             siteFooter.goToPrintShop();
             ArrayList<String> tabs = new ArrayList<String> (webDriver.getWindowHandles());
             webDriver.switchTo().window(tabs.get(1));
-            assertTrue(webDriver.getCurrentUrl().contains("https://www.printshoplab.com"));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://www.printshoplab.com"));
+            assertEquals("https://www.printshoplab.com", webDriver.getCurrentUrl().substring(0, 28));
             webDriver.quit();
         });
     }
@@ -40,7 +42,8 @@ public class OutsideLinksTest {
             siteFooter.goToSocialMedia();
             ArrayList<String> tabs = new ArrayList<String> (webDriver.getWindowHandles());
             webDriver.switchTo().window(tabs.get(1));
-            assertTrue(webDriver.getCurrentUrl().contains("https://www.youtube.com/"));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://www.youtube.com/"));
+            assertEquals("https://www.youtube.com/", webDriver.getCurrentUrl().substring(0, 24));
             webDriver.quit();
         });
     }
@@ -52,7 +55,8 @@ public class OutsideLinksTest {
             SiteFooter siteFooter = new SiteFooter(webDriver);
             siteFooter.getSite(webDriver);
             siteFooter.goToContact();
-            assertTrue(webDriver.getCurrentUrl().contains("https://zendesk.photobucket.com"));
+            assertEquals("https://zendesk.photobucket.com", webDriver.getCurrentUrl().substring(0, 31));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://zendesk.photobucket.com"));
             webDriver.quit();
         });
     }
@@ -64,8 +68,8 @@ public class OutsideLinksTest {
             SiteFooter siteFooter = new SiteFooter(webDriver);
             siteFooter.getSite(webDriver);
             siteFooter.goToBlog();
-            assertTrue(webDriver.getCurrentUrl().contains("https://blog.photobucket.com"));
-            //assertEquals("https://blog.photobucket.com", webDriver.getCurrentUrl().substring(0, 28));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://blog.photobucket.com"));
+            assertEquals("https://blog.photobucket.com", webDriver.getCurrentUrl().substring(0, 28));
             webDriver.quit();
         });
     }
@@ -79,7 +83,8 @@ public class OutsideLinksTest {
             siteHeader.goToAppAndroid();
             ArrayList<String> tabs = new ArrayList<String> (webDriver.getWindowHandles());
             webDriver.switchTo().window(tabs.get(1));
-            assertTrue(webDriver.getCurrentUrl().contains("https://play.google.com/store/apps/details?id=com.photobucket.android"));
+            assertEquals("https://play.google.com/store/apps/details?id=com.photobucket.android", webDriver.getCurrentUrl().substring(0, 68));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://play.google.com/store/apps/details?id=com.photobucket.android"));
             webDriver.quit();
         });
     }
@@ -93,7 +98,9 @@ public class OutsideLinksTest {
             siteHeader.goToAppIos();
             ArrayList<String> tabs = new ArrayList<String> (webDriver.getWindowHandles());
             webDriver.switchTo().window(tabs.get(1));
-            assertTrue(webDriver.getCurrentUrl().contains("https://apps.apple.com/us/app/photobucket-backup/"));
+            String url = webDriver.getCurrentUrl();
+            assertEquals("https://apps.apple.com/us/app/photobucket-backup/", webDriver.getCurrentUrl().substring(0, 58));
+            //assertTrue(webDriver.getCurrentUrl().contains("https://apps.apple.com/us/app/photobucket-backup/"));
             webDriver.quit();
         });
     }

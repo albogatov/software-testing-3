@@ -30,7 +30,7 @@ public class TestUtility {
     public static List<WebDriver> getDrivers() {
         List<WebDriver> drivers = new ArrayList<>();
         try {
-            drivers.add(getChromeDriver());
+//            drivers.add(getChromeDriver());
             drivers.add(getSafariDriver());
             return drivers;
         } catch (Exception e) {

@@ -34,6 +34,7 @@ public class LoginPage extends Site {
 
     public void doWrongLogin() {
         tryLogin(TestUtility.CORRECT_LOGIN, TestUtility.WRONG_PASSWORD);
+        TestUtility.waitUntilPageLoads(driver, 20);
     }
 
     public void doSignUp() {
@@ -50,6 +51,8 @@ public class LoginPage extends Site {
         loginInput.sendKeys(login);
         loginPassword.sendKeys(password);
         authButton.click();
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"hs_cos_wrapper_widget_1674774617303_\"]/img"));
+
     }
 
     private void trySignUp(CharSequence login, CharSequence password) {
@@ -72,5 +75,6 @@ public class LoginPage extends Site {
 
         acceptSomeGoddamnSpam.click();
         authButton.click();
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"hs_cos_wrapper_widget_1674774617303_\"]/img"));
     }
 }

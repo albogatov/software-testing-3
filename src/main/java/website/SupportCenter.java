@@ -1,6 +1,7 @@
 package website;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -66,7 +67,9 @@ public class SupportCenter extends Site{
 
     public void useChat() {
         TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[3]/div[2]/iframe")).click();
+        TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"home\"]")).click();
         driver.switchTo().frame(TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"home\"]/iframe")));
+        //driver.switchTo().frame(TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[3]/div[1]/div/iframe")));
         TestUtility.getElementBySelector(driver, By.xpath("//*[@id=\"1val-field_1.3.10--input\"]")).sendKeys("Hi");
         TestUtility.getElementBySelector(driver, By.xpath("/html/body/div[1]/div/div/div/div[2]/div[2]/div/div/button")).click();
     }
