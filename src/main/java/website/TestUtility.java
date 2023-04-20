@@ -65,10 +65,6 @@ public class TestUtility {
         return driverWait.until(ExpectedConditions.visibilityOfElementLocated(selector));
     }
 
-    public static WebElement getClickableElementBySelector(WebDriver driver, By selector) {
-        WebDriverWait driverWait = new WebDriverWait(driver, Duration.ofSeconds(30));
-        return driverWait.until(ExpectedConditions.elementToBeClickable(selector));
-    }
 
     public static void waitUntilPageLoads(WebDriver driver, long timeout) {
         WebDriverWait waitDriver = new WebDriverWait(driver, Duration.ofSeconds(timeout));
